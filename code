@@ -1,0 +1,22 @@
+def largest_palindrome(s):
+    left, right = 1, len(s) - 1
+    k = 1
+    palindrome = []
+    big_palindrome = str()
+    while True:
+        if left - k >= 0 or left + k <= right:
+            if s[left - k] == s[left + k]:
+                pal = s[(left - k):(left + k + 1)]
+                palindrome.append(pal)
+                k += 1
+            elif s[left - k] != s[left + k]:
+                left += 1
+                k = 1
+        if left - k < 0 or left + k > right:
+            left += 1
+            k = 1
+        if left >= right:
+            if len(palindrome) == 0:
+                return s[0]
+            big_palindrome = max(palindrome, key = lambda i: len(i))
+            return big_palindrome
